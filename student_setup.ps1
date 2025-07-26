@@ -18,9 +18,10 @@ Start-Process "https://github.com/amiho-dev/tad-service"
 Write-Host "`n2. GitHub Actions will build your unsigned IPA!" -ForegroundColor Cyan
 Write-Host "   After uploading files:" -ForegroundColor Yellow
 Write-Host "   1. Go to 'Actions' tab in your GitHub repo" -ForegroundColor White
-Write-Host "   2. The build will start automatically" -ForegroundColor White
-Write-Host "   3. Wait 15-20 minutes" -ForegroundColor White
-Write-Host "   4. Download 'TAD-Service-Unsigned-IPA' from artifacts" -ForegroundColor White
+Write-Host "   2. Click 'Build Student IPA' workflow" -ForegroundColor White  
+Write-Host "   3. Click 'Run workflow' button" -ForegroundColor White
+Write-Host "   4. Wait 15-20 minutes" -ForegroundColor White
+Write-Host "   5. Download 'TAD-Service-Student-IPA' from artifacts" -ForegroundColor White
 
 Write-Host "`n3. Install on iPhone (No Certificate Needed!)" -ForegroundColor Cyan
 Write-Host "   Option A - AltStore (Recommended):" -ForegroundColor Yellow

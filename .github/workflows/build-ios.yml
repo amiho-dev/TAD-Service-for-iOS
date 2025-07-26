@@ -24,13 +24,9 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
     
-    - name: Setup iOS
+    - name: Setup iOS project
       run: |
-        cd ios
-        pod install
-    
-    - name: Build iOS (No Codesign)
-      run: |
+        # Flutter will create the iOS project and Podfile
         flutter build ios --release --no-codesign
     
     - name: Create Unsigned IPA (No Certificate Needed)

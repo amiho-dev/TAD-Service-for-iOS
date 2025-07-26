@@ -1,0 +1,61 @@
+name: Build Student IPA (No Certificates)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-student-ipa:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.24.0'
+        channel: 'stable'
+    
+    - name: Install Flutter dependencies
+      run: flutter pub get
+    
+    - name: Build unsigned iOS app
+      run: |
+        flutter build ios --release --no-codesign
+    
+    - name: Create unsigned IPA
+      run: |
+        # Create IPA structure
+        mkdir -p build/ios/unsigned-ipa/Payload
+        
+        # Copy the built app
+        cp -R build/ios/iphoneos/Runner.app build/ios/unsigned-ipa/Payload/
+        
+        # Create the IPA
+        cd build/ios/unsigned-ipa
+        zip -r ../TAD-Service-Student.ipa Payload/
+        
+        # Verify IPA was created
+        ls -la ../TAD-Service-Student.ipa
+    
+    - name: Upload Student IPA
+      uses: actions/upload-artifact@v4
+      with:
+        name: TAD-Service-Student-IPA
+        path: build/ios/TAD-Service-Student.ipa
+        retention-days: 30
+    
+    - name: Build Summary
+      run: |
+        echo "✅ Student IPA built successfully!"
+        echo "📱 Download the artifact and install using:"
+        echo "   - AltStore (recommended)"
+        echo "   - Sideloadly"
+        echo "   - diawi.com for web install"
+        echo ""
+        echo "🎓 No Apple Developer account needed!"
