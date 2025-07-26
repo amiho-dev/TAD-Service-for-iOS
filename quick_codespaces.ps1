@@ -23,12 +23,14 @@ Write-Host "   - Wait 2-3 minutes for setup" -ForegroundColor White
 Write-Host "`n3. Run in Codespaces (No installation needed!)" -ForegroundColor Cyan
 Write-Host "   In the Codespaces terminal:" -ForegroundColor White
 Write-Host "   npm install" -ForegroundColor Yellow
+Write-Host "   npx @expo/cli@latest install" -ForegroundColor Yellow
 Write-Host "   npx expo start --web" -ForegroundColor Yellow
 
 Write-Host "`n4. See your app instantly!" -ForegroundColor Cyan
 Write-Host "   - App opens in browser automatically" -ForegroundColor White
 Write-Host "   - Works on any device" -ForegroundColor White
 Write-Host "   - No iPhone needed for testing" -ForegroundColor White
+Write-Host "   - GitHub Pages deployment automatic!" -ForegroundColor White
 
 Write-Host "`nWHY CODESPACES IS BETTER:" -ForegroundColor Green
 Write-Host "   - No Node.js installation" -ForegroundColor Cyan
