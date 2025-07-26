@@ -1,0 +1,50 @@
+name: Build React Native IPA
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Setup Expo
+      uses: expo/expo-github-action@v8
+      with:
+        expo-version: latest
+        token: ${{ secrets.EXPO_TOKEN }}
+    
+    - name: Build for iOS (Preview - No Certificates)
+      run: |
+        npx eas build --platform ios --profile preview --non-interactive --no-wait
+    
+    - name: Build for Web (Instant Preview)
+      run: |
+        npx expo export:web
+    
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+    
+    - name: Build Summary
+      run: |
+        echo "✅ React Native TAD Service App built!"
+        echo "🌐 Web version: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+        echo "📱 iOS build started on Expo servers"
+        echo "🚀 Check https://expo.dev for IPA download"
